@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="vh-100 gradient-custom-2">
+    <div class="black">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-sm-6 col-6 header-top-left">
+                    <ul>
+                        <li><a class="black" href="#">Logged in as {{request.user.email}}</a></li>
+                        <li><a class="black" href="{% url 'accounts:logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-12 col-xl-7">
+
+                <div class="card mask-custom">
+                    <div class="card-body p-4 text-white">
+
+                        <div class="text-center pt-3 pb-2">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                                alt="Check" width="60">
+                            <h2 class="my-4">Task List</h2>
+                        </div>
+
+                        <table class="table text-white mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="col-xl-9" scope="col">Task</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in tasks %}
+
+                                <tr class="fw-normal">
+                                    {% if task.done %}
+                                    <td class="align-middle">
+                                        <span><a href="{% url 'todo:task_edit' pk=task.id %}" data-mdb-tooltip-init
+                                                title="Show more"><s>{{task}}</s></a></span>
+                                    </td>
+                                    {% else %}
+                                    <td class="align-middle">
+                                        <span><a href="{% url 'todo:task_edit' pk=task.id %}" data-mdb-tooltip-init
+                                                title="Show more">{{task}}</a></span>
+                                    </td>
+
+                                    {% endif %}
+                                    <td class="align-middle">
+                                        {% if task.done %}
+                                        <a href="{% url 'todo:task_undo' pk=task.id %}" data-mdb-tooltip-init
+                                            title="Undo"><i class="fas fa-undo fa-lg me-3"></i></a>
+                                        {% else %}
+
+                                        <a href="{% url 'todo:task_done' pk=task.id %}" data-mdb-tooltip-init
+                                            title="Done"><i class="fas fa-check fa-lg text-success me-3"></i></a>
+
+                                        {% endif %}
+                                        <a href="{% url 'todo:task_edit' pk=task.id %}" data-mdb-tooltip-init
+                                            title="Edit"><i class="fas fa-pen text-black me-3 "></i></a>
+                                        <a href="{% url 'todo:task_delete' pk=task.id %}" data-mdb-tooltip-init
+                                            title="Remove"><i class="fas fa-trash-alt fa-lg text-warning"></i></a>
+
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+
+
+                            </tbody>
+                        </table>
+                        <form class="add text-center my-4" method="POST" action="{% url 'todo:task_create' %}">
+                            {% csrf_token %}
+                            <label class="text-light">Add a new todo...</label>
+                            <input class="form-control m-auto" type="text" placeholder="Title" name="title"
+                                required="" />
+                            <input class="form-control m-auto mt-2" type="text" placeholder="Description"
+                                name="description" />
+                            <div class="text-center mt-2">
+                                <input type="submit" class="btn btn-light" />
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

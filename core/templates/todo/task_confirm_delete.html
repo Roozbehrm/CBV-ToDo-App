@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="vh-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-12 col-xl-7">
+
+                <div class="card mask-custom">
+                    <div class="card-body p-4 text-white">
+
+                        <div class="text-center pt-3 pb-2">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                                alt="Check" width="60">
+                            <h2 class="my-4">Edit Task</h2>
+                        </div>
+
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <p class="align-middle">Are you sure you want to delete "{{object}}"?</p>
+    
+                            <input class="btn btn-light text-center" type="submit" value="Confirm">
+                            <a href="{% url 'todo:task_list' %}" class="btn btn-light text-center">Cancel</a>
+                        </form>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+{% endblock %}
