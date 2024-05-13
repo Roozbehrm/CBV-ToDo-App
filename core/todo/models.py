@@ -4,7 +4,7 @@ from django.db import models
 #User = get_user_model()
 class Task(models.Model):
     profile = models.ForeignKey(
-        'accounts.profile', on_delete=models.CASCADE, null=True, blank=True
+        'accounts.profile', on_delete=models.CASCADE, null=False,
     )
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
