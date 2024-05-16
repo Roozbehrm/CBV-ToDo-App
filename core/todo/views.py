@@ -14,6 +14,7 @@ class TaskList(LoginRequiredMixin, ListView):
         user_profile = Profile.objects.get(user = self.request.user)
         return super().get_queryset().filter(profile=user_profile)
     
+    
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['title', 'description']

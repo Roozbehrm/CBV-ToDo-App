@@ -5,5 +5,6 @@ from .models import Task
 class TaskAdmin(admin.ModelAdmin):
     models = Task
     ordering = ('-created_date',)
+    list_filter = ('profile',)
 
 admin.site.register(Task, TaskAdmin)
