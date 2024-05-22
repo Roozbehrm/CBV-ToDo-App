@@ -23,12 +23,12 @@ class TaskSerializer(serializers.ModelSerializer):
         else:
             rep.pop('description', None)
         return rep
-    
+# adding profile to task when creating    
     def create(self, validated_data):
         validated_data['profile']= Profile.objects.get(user__id = self.context.get('request').user.id)
         return super().create(validated_data)
 
- # getting a single task full url from request   
+# getting a single task full url from request   
     def get_task_absolute_url(self, instance):
         request = self.context.get('request')
         return  request.build_absolute_uri(instance.pk)
