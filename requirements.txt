@@ -3,4 +3,9 @@ python-decouple
 pillow
 djangorestframework
 markdown       
-django-filter 
+django-filter
+drf_spectacular
+djangorestframework-simplejwt
+
+#email template module
+django-mail-templated

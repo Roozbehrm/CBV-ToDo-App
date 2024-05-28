@@ -9,11 +9,13 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from .permissions import IsVerified
 
 # ModelViewSet class for list, create, update and delete actions with filtering, sorting and searching features
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
-    permission_classes = [IsAuthenticated]
+    queryset = Task.objects.all()
+    permission_classes = [IsAuthenticated, IsVerified]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['done'] 
     search_fields = ['title', 'description']

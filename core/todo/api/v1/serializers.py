@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from ...models import Task
 from accounts.models import Profile
+from drf_spectacular.utils import extend_schema_field
+from drf_spectacular.types import OpenApiTypes
 
 class TaskSerializer(serializers.ModelSerializer):
     snippet_description = serializers.ReadOnlyField(source='get_snippet_desc')
@@ -23,12 +25,14 @@ class TaskSerializer(serializers.ModelSerializer):
         else:
             rep.pop('description', None)
         return rep
+    
 # adding profile to task when creating    
     def create(self, validated_data):
         validated_data['profile']= Profile.objects.get(user__id = self.context.get('request').user.id)
         return super().create(validated_data)
 
-# getting a single task full url from request   
+# getting a single task full url from request
+    @extend_schema_field(OpenApiTypes.STR)   
     def get_task_absolute_url(self, instance):
         request = self.context.get('request')
         return  request.build_absolute_uri(instance.pk)

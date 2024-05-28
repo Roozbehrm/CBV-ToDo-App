@@ -7,7 +7,7 @@ app_name = 'api-v1'
 
 # default Router to generate urls for ModelViewSet
 router = DefaultRouter()
-router.register('task', TaskViewSet, basename='task')
+router.register('', TaskViewSet, basename='task')
 urlpatterns = router.urls
 
 
