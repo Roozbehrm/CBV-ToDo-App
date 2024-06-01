@@ -18,7 +18,7 @@
 
 
                         <form class="add text-center my-4" method="POST" action="">
-                            
+                            {% csrf_token %}
                             <table class="table text-white mb-0">
                                 <tbody>
                                     {{form}}

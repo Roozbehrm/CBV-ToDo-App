@@ -89,7 +89,7 @@ class CustomDestroyToken(APIView):
             return Response({"detail":"User has no auth_token."}, status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-# jwt login
+# jwt create, refresh
 class CustomTokenObtainPairView(TokenObtainPairView):
    serializer_class = CustomTokenObtainPairSerializer
 
@@ -141,7 +141,7 @@ class ActivationApiView(APIView):
         user_id = token.get('user_id')
         user_obj = User.objects.get(pk= user_id)
         if user_obj.is_verified:
-            return Response({'detail': 'Your account is already verified.'})
+            return Response({'detail': 'Your account is already verified.'}, status=status.HTTP_400_BAD_REQUEST)
         user_obj.is_verified = True
         user_obj.save()
         
@@ -188,7 +188,7 @@ class RequestPasswordResetApi(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.data["email"]
-        user = User.objects.get(email=email)
+        user = User.objects.filter(email=email).first()
         if user:
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             token = PasswordResetTokenGenerator().make_token(user)
@@ -223,7 +223,7 @@ class ResetPasswordConfirmApi(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response({'detail': 'token vrified! Enter new Password'}, status=status.HTTP_202_ACCEPTED)
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         """
         Verify token & uid and then reset the password.
         """

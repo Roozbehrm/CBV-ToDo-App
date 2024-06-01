@@ -7,5 +7,5 @@ Account Activation
 
 {% block html %}
 {{link}} </br>
-<a href="{{link}}">Reset Password</a>
+<a href="{{link}}">Activate Account</a>
 {% endblock %}

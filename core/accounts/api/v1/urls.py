@@ -20,7 +20,7 @@ urlpatterns = [
     #jwt auth
     path('jwt/create/', views.CustomTokenObtainPairView.as_view(), name='jwt_create'),
     path('jwt/refresh/', TokenRefreshView.as_view(), name='jwt_refresh'),
-    path('jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('jwt/verify/', TokenVerifyView.as_view(), name='jwt_verify'),
 
     # getting profile
     path('profile/', views.ProfileApiView.as_view(), name='profile'),

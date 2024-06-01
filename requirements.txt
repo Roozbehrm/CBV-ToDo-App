@@ -7,5 +7,9 @@ django-filter
 drf_spectacular
 djangorestframework-simplejwt
 
-#email template module
+# email template module
 django-mail-templated
+
+# testing module
+pytest
+pytest-django

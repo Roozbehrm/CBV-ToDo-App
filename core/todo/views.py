@@ -19,6 +19,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['title', 'description']
     success_url = reverse_lazy('todo:task_list')
+    template_name = "todo/task_edit.html"
 
     def form_valid(self, form):
         user_profile = Profile.objects.get(user = self.request.user)

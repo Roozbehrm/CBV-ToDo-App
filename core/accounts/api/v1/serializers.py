@@ -1,6 +1,6 @@
 from typing import Dict
 from rest_framework import serializers
-from ...models import User, Profile
+from rest_framework import status
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from django.contrib.auth import authenticate
@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode
-
+from ...models import User, Profile
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(max_length=255, write_only=True)
@@ -84,7 +84,7 @@ class  CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         validated_data['email'] = self.user.email
         return validated_data
     
-
+# change password
 class ChangePasswordSerializer(serializers.Serializer):
     model = User
 
@@ -96,10 +96,10 @@ class ChangePasswordSerializer(serializers.Serializer):
     new_password1 = serializers.CharField(required=True)
 
     def validate(self, attrs):
-        if attrs.get('password') != attrs.get('password1'):
+        if attrs.get('new_password') != attrs.get('new_password1'):
             raise serializers.ValidationError({'detail':'Passwords do not match.'})
         try:
-            validate_password(attrs.get('password'))
+            validate_password(attrs.get('new_password'))
         except exceptions.ValidationError as e:
             raise serializers.ValidationError({'password':list(e.messages)})
 
@@ -107,7 +107,7 @@ class ChangePasswordSerializer(serializers.Serializer):
     
     
 class ProfileSerializer(serializers.ModelSerializer):
-    email = serializers.CharField(source='user.email', read_only=True)
+    email = serializers.EmailField(source='user.email', read_only=True)
 
     class Meta:
         model = Profile
@@ -140,13 +140,13 @@ class RequestPasswordResetSerializer(serializers.Serializer):
     
 
 class ResetPasswordConfirmApiSerializer(serializers.Serializer):
-    password = serializers.CharField(write_only=True, min_length=1,)
-    password1 = serializers.CharField(write_only=True, min_length=1,)
+    new_password = serializers.CharField(write_only=True, min_length=1,)
+    new_password1 = serializers.CharField(write_only=True, min_length=1,)
 
 
     def validate(self, attrs):
-        password = attrs.get("password")
-        password1 = attrs.get("password1")
+        password = attrs.get("new_password")
+        password1 = attrs.get("new_password1")
         token = self.context.get("kwargs").get("token")
         uidb64 = self.context.get("kwargs").get("uidb64")
 
