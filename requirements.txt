@@ -13,3 +13,5 @@ django-mail-templated
 # testing module
 pytest
 pytest-django
+black
+flake8

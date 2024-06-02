@@ -1,5 +1,6 @@
 import threading
 
+
 class EmailThread(threading.Thread):
     def __init__(self, email_msg):
         super(EmailThread, self).__init__()

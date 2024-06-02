@@ -4,35 +4,48 @@ from accounts.models import Profile
 from drf_spectacular.utils import extend_schema_field
 from drf_spectacular.types import OpenApiTypes
 
+
 class TaskSerializer(serializers.ModelSerializer):
-    snippet_description = serializers.ReadOnlyField(source='get_snippet_desc')
-    task_absolute_url = serializers.SerializerMethodField() 
-    
+    snippet_description = serializers.ReadOnlyField(source="get_snippet_desc")
+    task_absolute_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Task
-        fields = ['id', 'profile', 'title', 'snippet_description', 'description', 'done', 'created_date', 'task_absolute_url']
-        read_only_fields = ['profile',]
+        fields = [
+            "id",
+            "profile",
+            "title",
+            "snippet_description",
+            "description",
+            "done",
+            "created_date",
+            "task_absolute_url",
+        ]
+        read_only_fields = [
+            "profile",
+        ]
 
-        
-# overriding the fields that shown for list and single task 
+    # overriding the fields that shown for list and single task
     def to_representation(self, instance):
-    
-        request = self.context.get('request')
+
+        request = self.context.get("request")
         rep = super().to_representation(instance)
-        if request.parser_context.get('kwargs').get('pk'):
-            rep.pop('snippet_description', None) 
-            rep.pop('task_absolute_url', None)
+        if request.parser_context.get("kwargs").get("pk"):
+            rep.pop("snippet_description", None)
+            rep.pop("task_absolute_url", None)
         else:
-            rep.pop('description', None)
+            rep.pop("description", None)
         return rep
-    
-# adding profile to task when creating    
+
+    # adding profile to task when creating
     def create(self, validated_data):
-        validated_data['profile']= Profile.objects.get(user__id = self.context.get('request').user.id)
+        validated_data["profile"] = Profile.objects.get(
+            user__id=self.context.get("request").user.id
+        )
         return super().create(validated_data)
 
-# getting a single task full url from request
-    @extend_schema_field(OpenApiTypes.STR)   
+    # getting a single task full url from request
+    @extend_schema_field(OpenApiTypes.STR)
     def get_task_absolute_url(self, instance):
-        request = self.context.get('request')
-        return  request.build_absolute_uri(instance.pk)
+        request = self.context.get("request")
+        return request.build_absolute_uri(instance.pk)
