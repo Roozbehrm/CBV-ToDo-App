@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Django Project Test
 
 on:
   push:
@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run Docker-Compose
-      run: docker-compose up -d
+      run: docker compose up -d
     - name: Run Tests
       run: docker compose exec backend sh -c "pytest && flake8 ."
