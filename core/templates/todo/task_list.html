@@ -79,7 +79,7 @@
                             {% csrf_token %}
                             <label class="text-light">Add a new todo...</label>
                             <input class="form-control m-auto" type="text" placeholder="Title" name="title"
-                                required="" />
+                                required pattern="\S(.*\S)?" title="no space allowed at beginning" />
                             <input class="form-control m-auto mt-2" type="text" placeholder="Description"
                                 name="description" />
                             <div class="text-center mt-2">
