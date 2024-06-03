@@ -220,7 +220,7 @@ class RequestPasswordResetApi(GenericAPIView):
             site_address = get_current_site(request)
             reset_url = reverse(
                 "accounts:api-v1:confirm_reset_password",
-                kwargs={"uidb64": uidb64, "token": token},
+                kwargs={"uidb64": uidb64, "token": 'testfalse'},
             )
             reset_link = f"http://{site_address}{reset_url}"
 
