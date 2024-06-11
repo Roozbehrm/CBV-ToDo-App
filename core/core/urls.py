@@ -37,6 +37,7 @@ urlpatterns = [
         "swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
     ),
     path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("weather/", include("weather.urls")),
 ]
 
 # serving static and media files for development
