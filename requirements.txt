@@ -18,3 +18,7 @@ flake8
 
 # fake data inserting module
 Faker
+
+# background processing and cache module
+celery
+redis
