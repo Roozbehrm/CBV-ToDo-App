@@ -1,14 +1,13 @@
 # from rest_framework.decorators import api_view
-# from rest_framework.views import APIView
 # from rest_framework.generics import GenericAPIView
-from ...models import Task
-from accounts.models import Profile
 from .serializers import TaskSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .permissions import IsVerified
+from ...models import Task
+from accounts.models import Profile
 
 
 # ModelViewSet class for list, create, update and delete actions with filtering, sorting and searching features

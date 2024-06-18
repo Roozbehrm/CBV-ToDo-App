@@ -6,6 +6,7 @@ markdown
 django-filter
 drf_spectacular
 djangorestframework-simplejwt
+requests
 
 # email template module
 django-mail-templated
@@ -21,4 +22,4 @@ Faker
 
 # background processing and cache module
 celery
-redis
+django-redis
