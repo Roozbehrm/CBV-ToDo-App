@@ -31,6 +31,8 @@ services:
     command: celery -A core worker -l INFO
     volumes:
       - ./core:/app
+    env_file:
+      - ./.env.stage
     depends_on:
       - backend
 
@@ -39,6 +41,8 @@ services:
     command: celery -A core beat -l INFO
     volumes:
       - ./core:/app
+    env_file:
+      - ./.env.stage
     depends_on:
       - backend
 
