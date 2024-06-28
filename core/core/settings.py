@@ -186,11 +186,13 @@ SIMPLE_JWT = {
 
 # email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = False
-EMAIL_HOST = "smtp4dev"
-EMAIL_PORT = 25
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.zoho.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "info@roozbehm.ir"
+EMAIL_HOST_PASSWORD = config("Email_password")
+DEFAULT_FROM_EMAIL = "info@roozbehm.ir"
+
 
 
 # password reset setting
