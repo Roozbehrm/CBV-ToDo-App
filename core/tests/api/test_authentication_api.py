@@ -200,8 +200,8 @@ class TestTaskApi:
     def test_reset_password_update_password_with_invalid_token(
         self, client, verified_user, user_reset_password_token
     ):
-        uidb64 = user_reset_password_token["uidb64"] + "#"
-        token = user_reset_password_token["token"]
+        uidb64 = user_reset_password_token["uidb64"]
+        token = user_reset_password_token["token"] + "t"
         url = reverse(
             "accounts:api-v1:confirm_reset_password",
             kwargs={"uidb64": uidb64, "token": token},
@@ -209,4 +209,4 @@ class TestTaskApi:
         response = client.put(
             url, data={"new_password": "!!@@##12345", "new_password1": "!!@@##12345"}
         )
-        assert response.status_code == 200
+        assert response.status_code == 400
