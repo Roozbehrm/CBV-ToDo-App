@@ -8,8 +8,31 @@ on:
 
 jobs:
 
+  create-envfile:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DEBUG: False
+        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        envkey_VARIABLE: ${{ vars.SOME_ACTION_VARIABLE }}
+        envkey_SQL_ENGINE: ${{ secrets.SQL_ENGINE }}
+        envkey_SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
+        envkey_SQL_USER: ${{ secrets.SQL_USER }}
+        envkey_SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+        envkey_SQL_HOST: ${{ secrets.SQL_HOST }}
+        envkey_SQL_PORT: ${{ secrets.SQL_PORT }}
+        envley_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        envley_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        envley_POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        file_name: .env
+
   Test:
     name: Test
+    needs: create-envfile
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
