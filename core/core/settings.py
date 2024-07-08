@@ -190,7 +190,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.zoho.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "info@roozbehm.ir"
-EMAIL_HOST_PASSWORD = config("Email_password")
+EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
 DEFAULT_FROM_EMAIL = "info@roozbehm.ir"
 
 

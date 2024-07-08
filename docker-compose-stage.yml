@@ -23,8 +23,20 @@ services:
       - media_volume:/app/media
     expose:
       - "8000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - SQL_ENGINE=${SQL_ENGINE}
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_PORT=${SQL_PORT}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
     env_file:
-      - ./.env
+      - path: ./.env
+        required: false
+
     depends_on:
       - redis
       - db
@@ -34,8 +46,20 @@ services:
     command: celery -A core worker -l INFO
     volumes:
       - ./core:/app
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - SQL_ENGINE=${SQL_ENGINE}
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_PORT=${SQL_PORT}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
     env_file:
-      - ./.env
+      - path: ./.env
+        required: false
+
     depends_on:
       - backend
 
@@ -44,8 +68,20 @@ services:
     command: celery -A core beat -l INFO
     volumes:
       - ./core:/app
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - SQL_ENGINE=${SQL_ENGINE}
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_PORT=${SQL_PORT}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
     env_file:
-      - ./.env
+      - path: ./.env
+        required: false
+
     depends_on:
       - backend
 
@@ -66,8 +102,14 @@ services:
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     env_file:
-      - ./.env
+      - path: ./.env
+        required: false
+
 volumes:
   static_volume:
   media_volume:

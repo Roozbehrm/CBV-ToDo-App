@@ -8,34 +8,25 @@ on:
 
 jobs:
 
-  create-envfile:
- 
-    runs-on: ubuntu-latest
- 
-    steps:
-    - name: Make envfile
-      uses: SpicyPizza/create-envfile@v2.0
-      with:
-        envkey_DEBUG: False
-        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        envkey_SQL_ENGINE: ${{ secrets.SQL_ENGINE }}
-        envkey_SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
-        envkey_SQL_USER: ${{ secrets.SQL_USER }}
-        envkey_SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-        envkey_SQL_HOST: ${{ secrets.SQL_HOST }}
-        envkey_SQL_PORT: ${{ secrets.SQL_PORT }}
-        envley_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-        envley_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        envley_POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-        file_name: .env
-
   Test:
     name: Test
-    needs: create-envfile
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Setup Docker Compose
+      env:
+        SECRET_KEY: ${{secrets.SECRET_KEY}}
+        DEBUG: ${{secrets.DEBUG}}
+        SQL_ENGINE: ${{secrets.SQL_ENGINE}}
+        SQL_DATABASE: ${{secrets.SQL_DATABASE}}
+        SQL_USER: ${{secrets.SQL_USER}}
+        SQL_PASSWORD: ${{secrets.SQL_PASSWORD}}
+        SQL_HOST: ${{secrets.SQL_HOST}}
+        SQL_PORT: ${{secrets.SQL_PORT}}
+        EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
+        POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+        POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+        POSTGRES_DB: ${{secrets.POSTGRES_DB}}
       run: docker compose -f docker-compose-stage.yml up -d
     - name: Run Tests
       run: docker compose exec backend sh -c "flake8 && pytest ."
