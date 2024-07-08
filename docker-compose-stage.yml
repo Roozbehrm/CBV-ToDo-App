@@ -62,7 +62,7 @@ services:
     depends_on:
       - backend
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
