@@ -18,7 +18,6 @@ jobs:
       with:
         envkey_DEBUG: False
         envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        envkey_VARIABLE: ${{ vars.SOME_ACTION_VARIABLE }}
         envkey_SQL_ENGINE: ${{ secrets.SQL_ENGINE }}
         envkey_SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
         envkey_SQL_USER: ${{ secrets.SQL_USER }}
