@@ -201,7 +201,7 @@ class TestTaskApi:
         self, client, verified_user, user_reset_password_token
     ):
         uidb64 = user_reset_password_token["uidb64"]
-        token = user_reset_password_token["token"] + "t"
+        token = user_reset_password_token["token"] + "B"
         url = reverse(
             "accounts:api-v1:confirm_reset_password",
             kwargs={"uidb64": uidb64, "token": token},
