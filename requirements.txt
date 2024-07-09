@@ -23,3 +23,9 @@ Faker
 # background processing and cache module
 celery
 django-redis
+
+# deployment module
+gunicorn
+
+# database connection module
+psycopg[binary]

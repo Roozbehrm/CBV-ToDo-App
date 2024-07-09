@@ -57,7 +57,7 @@ class RegistrationApiView(GenericAPIView):
             email_msg = EmailMessage(
                 "email/user-activation.tpl",
                 {"link": activation_link},
-                "roozbehm.ir",
+                "info@roozbehm.ir",
                 to=[email],
             )
             EmailThread(email_msg).start()
@@ -187,7 +187,7 @@ class ActivationResendApiView(GenericAPIView):
         email_msg = EmailMessage(
             "email/user-activation.tpl",
             {"link": activation_link},
-            "roozbehm.ir",
+            "info@roozbehm.ir",
             to=[user_obj.email],
         )
         EmailThread(email_msg).start()
@@ -228,7 +228,7 @@ class RequestPasswordResetApi(GenericAPIView):
             email_msg = EmailMessage(
                 "email/reset-password.tpl",
                 {"link": reset_link},
-                "roozbehm.ir",
+                "info@roozbehm.ir",
                 to=[user.email],
             )
             EmailThread(email_msg).start()
